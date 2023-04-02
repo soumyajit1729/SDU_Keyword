@@ -1,5 +1,5 @@
 # import tensorflow as tf
-import tensorflow_hub as hub
+# import tensorflow_hub as hub
 
 from transformers import (
   TokenClassificationPipeline,
@@ -40,32 +40,32 @@ def extractor(txt):
   keywords = kw_model.extract_keywords(txt,keyphrase_ngram_range=(1, 3), stop_words='english')  
   for x in keywords:
     l1.append(x[0])
-  module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
-  model = hub.load(module_url)
-  print("Keyword done")
-  l1 = remove_similar_words(l1,model)
+  # module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+  # model = hub.load(module_url)
+  # print("Keyword done")
+  # l1 = remove_similar_words(l1,model)
   return l1  
 
-def cosine_similarity_calc(vec_1,vec_2):
+# def cosine_similarity_calc(vec_1,vec_2):
   
-  sim = np.dot(vec_1,vec_2)/(np.linalg.norm(vec_1)*np.linalg.norm(vec_2))
+#   sim = np.dot(vec_1,vec_2)/(np.linalg.norm(vec_1)*np.linalg.norm(vec_2))
   
-  return sim
-def remove_similar_words(list1,model):
+#   return sim
+# def remove_similar_words(list1,model):
   #print ("module %s loaded" % module_url)
-  def embed(input):
-    return model(input)
-  message_embeddings = embed(list1)
-  #print(list1,message_embeddings)
-  fin_list = []
-  c_list = [0 for i in range(len(list1))]
-  for i in range(len(list1)):
-    if(c_list[i]==0):
-      fin_list.append(list1[i])
-      for j in range(i+1,len(list1)):
-        if(cosine_similarity_calc(message_embeddings[i],message_embeddings[j])>0.8):
-          #print(message_embeddings[i],message_embeddings[j],cosine_similarity_calc(message_embeddings[i],message_embeddings[j]))
+  # def embed(input):
+  #   return model(input)
+  # message_embeddings = embed(list1)
+  # #print(list1,message_embeddings)
+  # fin_list = []
+  # c_list = [0 for i in range(len(list1))]
+  # for i in range(len(list1)):
+  #   if(c_list[i]==0):
+  #     fin_list.append(list1[i])
+  #     for j in range(i+1,len(list1)):
+  #       if(cosine_similarity_calc(message_embeddings[i],message_embeddings[j])>0.8):
+  #         #print(message_embeddings[i],message_embeddings[j],cosine_similarity_calc(message_embeddings[i],message_embeddings[j]))
           
-          list1[j]=1
-  fin_list = [i for i in fin_list if i != 1]
-  return fin_list
+  #         list1[j]=1
+  # fin_list = [i for i in fin_list if i != 1]
+  # return fin_list
