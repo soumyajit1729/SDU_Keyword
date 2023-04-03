@@ -10,6 +10,10 @@ from transformers.pipelines import AggregationStrategy
 import numpy as np
 
 from keybert import KeyBERT
+kw_model = KeyBERT(model='all-mpnet-base-v2')
+
+module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+model = hub.load(module_url)
 
 def extractor(txt):
   # Define keyphrase extraction pipeline
@@ -35,14 +39,14 @@ def extractor(txt):
   l1 = []
   for x in extractor(txt):
     l1.append(x)
-  
-  kw_model = KeyBERT(model='all-mpnet-base-v2')
+  print("///////// keywords done 1 ///////////")
+  # kw_model = KeyBERT(model='all-mpnet-base-v2')
   keywords = kw_model.extract_keywords(txt,keyphrase_ngram_range=(1, 3), stop_words='english')  
   for x in keywords:
     l1.append(x[0])
-  module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
-  model = hub.load(module_url)
-  print("Keyword done")
+  print("///////// keywords done 2 ///////////")
+  # module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+  # model = hub.load(module_url)
   l1 = remove_similar_words(l1,model)
   return l1  
 
