@@ -58,14 +58,24 @@
                 <h1>Keyword Extractor</h1>
             </div>
             <div class="card-body">
-                <form method="POST">
+                <form method="POST" action="{{ url_for('home') }}">
                     <div class="form-group">
                         <label for="text">Enter your text:</label>
-                        <textarea rows="10" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
+                        <textarea id="text_field" rows="10" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
                     </div>
                     <button class="btn btn-submit" type="submit">Extract Keywords</button>
-                    <!-- <button onclick="stopLoading()" class="btn btn-warning">Stop Loading</button> -->
+                    <button onclick="stopLoading()" class="btn btn-warning">Clear text</button>
+                    
 
+                </form>
+                <form method="POST" action="{{ url_for('get_link') }}">
+                    <div class="form-group">
+                        <label for="text">Enter your link:</label>
+                        <textarea rows="1" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
+                    </div>
+                    <button class="btn btn-warning" type="submit">
+                        Get Text from Link
+                    </button>
                 </form>
                 {% if text %}
                 <div style="padding: 10px">
@@ -95,8 +105,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+        const initial_text = "{{ itext }}";
+        console.log(initial_text);
+        if(initial_text!="NA"){
+            document.getElementById("text_field").value = initial_text;
+        }
+        document.getElementById("text_field").value = initial_text;
         function stopLoading() {
-            window.stop();
+            document.getElementById("text_field").value = "";
         }
 
         function myFunction() {
