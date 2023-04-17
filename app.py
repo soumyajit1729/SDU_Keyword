@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from keywords import extractor
+from keywords import extractor5
 import requests
 from bs4 import BeautifulSoup
 
@@ -24,7 +24,7 @@ def home():
     if request.method == 'POST':
         text = request.form['text']
         para = text
-        keywords = extractor(text)
+        keywords = extractor5(text)
         # keywords.append("Education")
         # keywords.append("Books")
         # keywords.append("Professors")
@@ -61,7 +61,7 @@ def get_link():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py

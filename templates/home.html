@@ -64,7 +64,7 @@
                         <textarea id="text_field" rows="10" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
                     </div>
                     <button class="btn btn-submit" type="submit">Extract Keywords</button>
-                    <button onclick="stopLoading()" class="btn btn-warning">Clear text</button>
+                    <button onclick="clear()" class="btn btn-warning">Clear text</button>
                     
 
                 </form>
@@ -111,7 +111,7 @@
             document.getElementById("text_field").value = initial_text;
         }
         document.getElementById("text_field").value = initial_text;
-        function stopLoading() {
+        function clear() {
             document.getElementById("text_field").value = "";
         }
 
