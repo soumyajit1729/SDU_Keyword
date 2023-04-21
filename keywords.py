@@ -95,7 +95,7 @@ def extractor5(text):
   for (x1,x2) in keyphrases:
     ans.append(x1.capitalize())
 
-  kw_model = KeyBERT(model='all-mpnet-base-v2')
+  kw_model = KeyBERT(model='all-mpnet-base-v2') 
   keywords = kw_model.extract_keywords(text,keyphrase_ngram_range=(1, 1), stop_words='english')  
   for x in keywords:
     ans.append(x[0].capitalize())
@@ -115,7 +115,7 @@ def extractor5(text):
     if flag:
       ans1.append(x.capitalize())
       
-  random.shuffle(ans1)
-  if len(ans1)>15:
-    ans1 = ans1[0:15]
+  # random.shuffle(ans1)
+  # if len(ans1)>15:
+  #   ans1 = ans1[0:15]
   return ans1

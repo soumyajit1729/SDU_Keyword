@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from keywords import extractor5
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 
 # import nltk
 # nltk.download('punkt')
@@ -36,19 +36,42 @@ def home():
                            keywords=keywords, text=para[:100], copy = copy_text)
 
 
-@app.route('/get_link', methods=['POST'])
-def get_link():
-    url = request.form['text']
+def get_text_from_url(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Find the main article content
     article = soup.find('div', class_='entry-content')
 
+    # preprocessing
+    a_tags = []
+    flag = 0
+    for tag in article.descendants:
+        # Do something with the tag
+        if(tag.name=='h1' or tag.name=='h2' or tag.name=='h3' or tag.name=='strong'):
+            txt = tag.text.lower()
+            if("references" in txt or "related" in txt or "notes" in txt or "images" in txt ):
+                flag = 1
+                a_tags.append(tag)
+        elif(flag == 1):
+            a_tags.append(tag)
+
+    print(a_tags)
+
+    for tag in a_tags:
+        if not isinstance(tag, NavigableString):
+            tag.decompose()
+
     # Get the text of the article
     article_text = article.get_text()
     article_text = article_text.strip()
     article_text = article_text.replace("\n", "")
+    return article_text
+
+@app.route('/get_link', methods=['POST'])
+def get_link():
+    url = request.form['text']
+    article_text = get_text_from_url(url)
     keywords = []
     para = ""
     copy_text = ""
