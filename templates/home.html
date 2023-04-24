@@ -50,6 +50,33 @@
             border-radius: 5px;
         }
     </style>
+    <!-- Link to Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        const initial_text = "{{ itext }}";
+        console.log(initial_text);
+        if(initial_text!="NA"){
+            document.getElementById("text_field").value = initial_text;
+        }
+        document.getElementById("text_field").value = initial_text;
+        function clear() {
+            document.getElementById("text_field").value = "";
+        }
+
+        function myFunction() {
+            // Copy the text inside the text field
+            const text = "{{ copy }}";
+            navigator.clipboard.writeText(text);
+            // Alert the copied text
+            var button = document.getElementById("copy");
+            button.innerHTML = "Text Copied";
+            setTimeout(function(){
+                button.innerHTML = "Copy keywords"
+            }, 2000); // 2 seconds delay
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -100,32 +127,6 @@
             </div>
         </div>
     </div>
-    <!-- Link to Bootstrap JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        const initial_text = "{{ itext }}";
-        console.log(initial_text);
-        if(initial_text!="NA"){
-            document.getElementById("text_field").value = initial_text;
-        }
-        document.getElementById("text_field").value = initial_text;
-        function clear() {
-            document.getElementById("text_field").value = "";
-        }
-
-        function myFunction() {
-            // Copy the text inside the text field
-            const text = "{{ copy }}";
-            navigator.clipboard.writeText(text);
-            // Alert the copied text
-            var button = document.getElementById("copy");
-            button.innerHTML = "Text Copied";
-            setTimeout(function(){
-                button.innerHTML = "Copy keywords"
-            }, 2000); // 2 seconds delay
-        }
-    </script>
+    
 </body>
 </html>

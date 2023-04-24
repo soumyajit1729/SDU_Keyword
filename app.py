@@ -86,7 +86,7 @@ def get_link():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=22)
+    app.run(host='0.0.0.0')
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py
