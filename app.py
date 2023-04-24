@@ -20,7 +20,7 @@ def home():
     keywords = []
     para = ""
     copy_text = ""
-    itext = "NA"
+    itext = ""
     if request.method == 'POST':
         text = request.form['text']
         para = text
@@ -68,8 +68,10 @@ def get_text_from_url(url):
     article_text = article_text.replace("\n", "")
     return article_text
 
-@app.route('/get_link', methods=['POST'])
+@app.route('/get_link', methods=['GET','POST'])
 def get_link():
+    if request.method == 'GET':
+        return redirect(url_for('home'))
     url = request.form['text']
     article_text = get_text_from_url(url)
     keywords = []
@@ -84,7 +86,7 @@ def get_link():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py

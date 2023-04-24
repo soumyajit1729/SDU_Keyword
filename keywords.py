@@ -2,12 +2,12 @@ import pke
 import tensorflow as tf
 import tensorflow_hub as hub
 import random
-# from transformers import (
-#   TokenClassificationPipeline,
-#   AutoModelForTokenClassification,
-#   AutoTokenizer,
-# )
-# from transformers.pipelines import AggregationStrategy
+from transformers import (
+  TokenClassificationPipeline,
+  AutoModelForTokenClassification,
+  AutoTokenizer,
+)
+from transformers.pipelines import AggregationStrategy
 import numpy as np
 
 from keybert import KeyBERT
@@ -15,7 +15,7 @@ from keybert import KeyBERT
 def cosine_similarity_calc(vec_1,vec_2):
   
   sim = np.dot(vec_1,vec_2)/(np.linalg.norm(vec_1)*np.linalg.norm(vec_2))
-  
+  #print(sim)
   return sim
   
 def remove_similar_words(list1,model):
@@ -51,28 +51,28 @@ def extractor5(text):
   
 
   
-  # # Define keyphrase extraction pipeline
-  # class KeyphraseExtractionPipeline(TokenClassificationPipeline):
-  #     def __init__(self, model, *args, **kwargs):
-  #         super().__init__(
-  #             model=AutoModelForTokenClassification.from_pretrained(model),
-  #             tokenizer=AutoTokenizer.from_pretrained(model),
-  #             *args,
-  #             **kwargs
-  #         )
+  # Define keyphrase extraction pipeline
+  class KeyphraseExtractionPipeline(TokenClassificationPipeline):
+      def __init__(self, model, *args, **kwargs):
+          super().__init__(
+              model=AutoModelForTokenClassification.from_pretrained(model),
+              tokenizer=AutoTokenizer.from_pretrained(model),
+              *args,
+              **kwargs
+          )
 
-  #     def postprocess(self, model_outputs):
-  #         results = super().postprocess(
-  #             model_outputs=model_outputs,
-  #             aggregation_strategy=AggregationStrategy.SIMPLE,
-  #         )
-  #         return np.unique([result.get("word").strip() for result in results])
-  # # Load pipeline
-  # model_name = "ml6team/keyphrase-extraction-kbir-inspec"
-  # extractor = KeyphraseExtractionPipeline(model=model_name)
+      def postprocess(self, model_outputs):
+          results = super().postprocess(
+              model_outputs=model_outputs,
+              aggregation_strategy=AggregationStrategy.SIMPLE,
+          )
+          return np.unique([result.get("word").strip() for result in results])
+  # Load pipeline
+  model_name = "ml6team/keyphrase-extraction-kbir-inspec"
+  extractor = KeyphraseExtractionPipeline(model=model_name)
 
-  # for x in extractor(text):
-  #   ans.append(x)
+  for x in extractor(text):
+    ans.append(x)
   
     # initialize keyphrase extraction model, here TopicRank
   extractor = pke.unsupervised.TopicRank()
@@ -95,7 +95,7 @@ def extractor5(text):
   for (x1,x2) in keyphrases:
     ans.append(x1.capitalize())
 
-  kw_model = KeyBERT(model='all-mpnet-base-v2') 
+  kw_model = KeyBERT(model='all-mpnet-base-v2')
   keywords = kw_model.extract_keywords(text,keyphrase_ngram_range=(1, 1), stop_words='english')  
   for x in keywords:
     ans.append(x[0].capitalize())
