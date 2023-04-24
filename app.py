@@ -65,7 +65,7 @@ def get_text_from_url(url):
     # Get the text of the article
     article_text = article.get_text()
     article_text = article_text.strip()
-    article_text = article_text.replace("\n", "")
+    article_text = article_text.replace("\n", " ")
     return article_text
 
 @app.route('/get_link', methods=['GET','POST'])
@@ -86,7 +86,7 @@ def get_link():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=22)
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py
