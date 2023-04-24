@@ -56,8 +56,6 @@ def get_text_from_url(url):
         elif(flag == 1):
             a_tags.append(tag)
 
-    print(a_tags)
-
     for tag in a_tags:
         if not isinstance(tag, NavigableString):
             tag.decompose()
@@ -86,7 +84,7 @@ def get_link():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py
