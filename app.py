@@ -24,10 +24,10 @@ def home():
     if request.method == 'POST':
         text = request.form['text']
         para = text
-        keywords = extractor5(text)
-        # keywords.append("Education")
-        # keywords.append("Books")
-        # keywords.append("Professors")
+        # keywords = extractor5(text)
+        keywords.append("Education")
+        keywords.append("Books")
+        keywords.append("Professors")
         for word in keywords:
             copy_text = copy_text+word+", "
         copy_text = copy_text[:-2]
