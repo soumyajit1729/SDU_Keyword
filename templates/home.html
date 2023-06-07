@@ -55,14 +55,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        function clear() {
+        function clear1() {
             document.getElementById("text_field").value = "";
+                            console.log("hello world");
         }
 
         function myFunction() {
             // Copy the text inside the text field
             const text = "{{ copy }}";
-            navigator.clipboard.writeText(text);
+                console.log("HELLO WORLD");
+                            console.log(text);
+            const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
+  } catch (err) {
+    console.error('Unable to copy to clipboard', err);
+  }
+  document.body.removeChild(textArea);
+                            // navigator.clipboard.writeText(text);
             // Alert the copied text
             var button = document.getElementById("copy");
             button.innerHTML = "Text Copied";
@@ -82,11 +96,11 @@
                 <form method="POST" action="{{ url_for('home') }}">
                     <div class="form-group">
                         <label for="text">Enter your text:</label>
-                        <textarea id="text_field" rows="10" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
+                        <textarea id="text_field" rows="11" class="form-control" name="text" id="text" placeholder="Paste your text here..."></textarea>
                     </div>
-                    <button class="btn btn-submit" type="submit">Extract Keywords</button>
-                    <!-- <a href="{{ url_for('home') }}" style="color: black;"><button class="btn btn-warning black-text">Clear text</button></a> -->
-                    
+            <button class="btn btn-submit" type="submit">Extract Keywords</button>
+            <!-- <button class="btn btn-warning black-text" onclick="clear1()" id="clear">Clear text</button>-->
+
 
                 </form>
                 <form method="POST" action="{{ url_for('get_link') }}">
@@ -116,7 +130,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                    
+
                 {% endif %}
             </div>
         </div>
@@ -128,7 +142,7 @@
             document.getElementById("text_field").value = initial_text;
         }
         //document.getElementById("text_field").value = initial_text;
-        
+
     </script>
 </body>
 </html>

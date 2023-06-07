@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from keywords import extractor5
+# from keywords import extractor5
 import requests
 from bs4 import BeautifulSoup, NavigableString
+from gevent.pywsgi import WSGIServer
 
 # import nltk
 # nltk.download('punkt')
@@ -85,6 +86,8 @@ def get_link():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
+    # http_server = WSGIServer(('', 5000), app)
+    # http_server.serve_forever()
 
 
 # ubuntu@ip-172-31-6-66:~/SDU_Keyword$ python3 app.py
