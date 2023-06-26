@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from keywords import extractor5
 import requests
 from bs4 import BeautifulSoup, NavigableString
-from gevent.pywsgi import WSGIServer
+# from gevent.pywsgi import WSGIServer
 
 # import nltk
 # nltk.download('punkt')
