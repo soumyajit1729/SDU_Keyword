@@ -50,7 +50,7 @@ def generate_N_grams(text,ngram=1):
   ans=[' '.join(ngram) for ngram in temp]
   ans1 = set()
   for x in ans:
-    ans1.add(x)
+    ans1.add(x.strip(",? :/."))
   return ans1
 
 
