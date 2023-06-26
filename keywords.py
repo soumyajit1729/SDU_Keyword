@@ -13,11 +13,11 @@ import numpy as np
 from keybert import KeyBERT
 
 def cosine_similarity_calc(vec_1,vec_2):
-  
+
   sim = np.dot(vec_1,vec_2)/(np.linalg.norm(vec_1)*np.linalg.norm(vec_2))
   #print(sim)
   return sim
-  
+
 def remove_similar_words(list1,model):
   #print ("module %s loaded" % module_url)
   def embed(input):
@@ -32,7 +32,7 @@ def remove_similar_words(list1,model):
       for j in range(i+1,len(list1)):
         if(cosine_similarity_calc(message_embeddings[i],message_embeddings[j])>0.5):
           #print(message_embeddings[i],message_embeddings[j],cosine_similarity_calc(message_embeddings[i],message_embeddings[j]))
-          
+
           list1[j]=1
   fin_list = [i for i in fin_list if i != 1]
   return fin_list
@@ -66,8 +66,8 @@ def kbir_model(text):
 
   # Define keyphrase extraction pipeline
   class KeyphraseExtractionPipeline(TokenClassificationPipeline):
-      def _init_(self, model, *args, **kwargs):
-          super()._init_(
+      def __init__(self, model, *args, **kwargs):
+          super().__init__(
               model=AutoModelForTokenClassification.from_pretrained(model),
               tokenizer=AutoTokenizer.from_pretrained(model),
               *args,
@@ -94,6 +94,7 @@ def get_categories(txt):
   for i in range(5):
     my_words = my_words.union(generate_N_grams(txt,i+1))
   ans = []
+  print(my_words)
   for x in my_words:
     if(len(x)>0 and x[0]=='#' and len(x.split())==1):
       ans.append(x.capitalize())
@@ -105,21 +106,23 @@ def get_categories(txt):
 def extractor5(text):
   ans=[]
 
-  
+  anss = kbir_model(text)
+  for x in anss:
+    ans.append(x)
 
-  try:
-    anss = kbir_model(text)
-    for x in anss:
-      ans.append(x)
-  except:
-    print("Error on KBIR Model")
+  # try:
+  #   anss = kbir_model(text)
+  #   for x in anss:
+  #     ans.append(x)
+  # except:
+  #   print("Error on KBIR Model")
 
 
-  
+
     # initialize keyphrase extraction model, here TopicRank
   extractor = pke.unsupervised.TopicRank()
 
-  # load the content of the document, here document is expected to be a simple 
+  # load the content of the document, here document is expected to be a simple
   # test string and preprocessing is carried out using spacy
   extractor.load_document(input=text, language='en')
 
@@ -133,12 +136,12 @@ def extractor5(text):
   # N-best selection, keyphrases contains the 10 highest scored candidates as
   # (keyphrase, score) tuples
   keyphrases = extractor.get_n_best(n=10)
-  
+
   for (x1,x2) in keyphrases:
     ans.append(x1.capitalize())
 
   kw_model = KeyBERT(model='all-mpnet-base-v2')
-  keywords = kw_model.extract_keywords(text,keyphrase_ngram_range=(1, 1), stop_words='english')  
+  keywords = kw_model.extract_keywords(text,keyphrase_ngram_range=(1, 1), stop_words='english')
   for x in keywords:
     ans.append(x[0].capitalize())
 
@@ -156,7 +159,7 @@ def extractor5(text):
         break
     if flag:
       ans1.append(x.capitalize())
-  
+
   ans2 = get_categories(text)
   ans3 = ans1 + ans2
   fans = remove_similar_words(ans3,model)
