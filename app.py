@@ -80,6 +80,8 @@ def process(arg_article):
     flag = 0
     for tag in arg_article.descendants:
         # Do something with the tag
+        if(flag==0 and (tag.name=='sup' or tag.name=='sub')):
+            a_tags.append(tag)
         if(tag.name=='h1' or tag.name=='h2' or tag.name=='h3' or tag.name=='strong'):
             txt = tag.text.lower()
             if("references" in txt or "related" in txt or "notes" in txt or "images" in txt ):
