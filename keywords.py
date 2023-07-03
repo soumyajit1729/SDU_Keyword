@@ -94,7 +94,7 @@ def get_categories(txt):
   for i in range(5):
     my_words = my_words.union(generate_N_grams(txt,i+1))
   ans = []
-  print(my_words)
+  # print(my_words)
   for x in my_words:
     if(len(x)>0 and x[0]=='#' and len(x.split())==1):
       ans.append(x.capitalize())
