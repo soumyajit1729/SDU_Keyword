@@ -106,16 +106,16 @@ def get_categories(txt):
 def extractor5(text):
   ans=[]
 
-  anss = kbir_model(text)
-  for x in anss:
-    ans.append(x)
+  # anss = kbir_model(text)
+  # for x in anss:
+  #   ans.append(x)
 
-  # try:
-  #   anss = kbir_model(text)
-  #   for x in anss:
-  #     ans.append(x)
-  # except:
-  #   print("Error on KBIR Model")
+  try:
+    anss = kbir_model(text)
+    for x in anss:
+      ans.append(x)
+  except:
+    print("Error on KBIR Model")
 
 
 
