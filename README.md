@@ -16,7 +16,7 @@ To run this Flask app, you need to install the following libraries:
 You can install these libraries using the following command:
 
 ```
-pip install tensorflow pke keybert tensorflow_hub beautifulsoup4 transformer
+pip install tensorflow keybert tensorflow_hub beautifulsoup4 transformer
 ```
 
 ## Usage
@@ -37,7 +37,4 @@ pip install tensorflow pke keybert tensorflow_hub beautifulsoup4 transformer
 ## Requirements
 
 - Hard Disk: 20GB or more (recommended)
-- RAM: Minimum 4GB
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+- RAM: Minimum 6GB
